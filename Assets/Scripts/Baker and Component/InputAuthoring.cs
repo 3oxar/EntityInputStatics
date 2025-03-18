@@ -6,6 +6,8 @@ class InputAuthoring : MonoBehaviour
 {
    [HideInInspector] public float2 Move;
    [HideInInspector] public float Jerk;
+   [HideInInspector] public float CreatePrefab;
+   [HideInInspector] public float Fire;
 }
 
 class InputAuthoringBaker : Baker<InputAuthoring>
@@ -17,7 +19,9 @@ class InputAuthoringBaker : Baker<InputAuthoring>
         AddComponent(entity, new InputComponent
         {
             Move = authoring.Move,
-            Jerk = authoring.Jerk
+            Jerk = authoring.Jerk,
+            CreatePrefab = authoring.CreatePrefab, 
+            Fire = authoring.Fire
         });
     }
 }
@@ -26,5 +30,7 @@ struct InputComponent: IComponentData
 {
     public float2 Move;
     public float Jerk;
+    public float CreatePrefab;
+    public float Fire;
 }
 

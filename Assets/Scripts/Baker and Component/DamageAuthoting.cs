@@ -3,7 +3,7 @@ using UnityEngine;
 
 class DamageAuthoting : MonoBehaviour
 {
-    
+    public float TimeReloadDamage;
 }
 
 class DamageAuthotingBaker : Baker<DamageAuthoting>
@@ -13,12 +13,15 @@ class DamageAuthotingBaker : Baker<DamageAuthoting>
         Entity entity = GetEntity(authoring, TransformUsageFlags.None);
 
         AddComponent(entity, new DamageTag());
-        AddComponent(entity, new DamageComponent());
+        AddComponent(entity, new DamageComponent
+        {
+            TimeReloadDamage = authoring.TimeReloadDamage
+        });
     }
 }
 
 
 struct DamageComponent : IComponentData
 {
-
+    public float TimeReloadDamage;//промежуток нанесения урона
 }

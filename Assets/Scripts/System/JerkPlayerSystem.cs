@@ -24,7 +24,7 @@ partial struct JerkPlayerSystem : ISystem
                 _isjerk = true;
                 _timeJerk = 0.2f;
             }
-            switch (_isjerk)
+            switch (_isjerk)//движение во время рывка
             {
                 case true:
                     transform.ValueRW.Position = transform.ValueRW.TransformPoint(new float3(inputPlayer.ValueRW.Move.x * 5f * SystemAPI.Time.DeltaTime, 0, inputPlayer.ValueRW.Move.y * 5f * SystemAPI.Time.DeltaTime) * -1);
@@ -36,11 +36,5 @@ partial struct JerkPlayerSystem : ISystem
                     break;
             }
         }
-    }
-
-    [BurstCompile]
-    public void OnDestroy(ref SystemState state)
-    {
-        
     }
 }

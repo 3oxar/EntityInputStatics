@@ -1,48 +1,25 @@
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Transforms;
 using Unity.Burst;
-using Unity.Mathematics;
-using UnityEngine;
-using UnityEditor.Search;
-
 
 partial struct HealthPlayerSystem : ISystem
 {
-    [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-
-    }
-
+   
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         var ECB = new EntityCommandBuffer(Allocator.Temp);
-        
 
-        foreach (var (health, player, entity) in SystemAPI.Query<RefRO<HealthPlayerComponent>, RefRO<PlayerTag>>().WithEntityAccess())
+        foreach (var (health, player, entityQuery) in SystemAPI.Query<RefRO<HealthPlayerComponent>, RefRO<PlayerTag>>().WithEntityAccess())
         {
-            if (health.ValueRO.Health <= 0)
+            if(health.ValueRO.Health <= 0)//если 0 жизней то уничтожаем игрока
             {
-                Debug.Log("destroy");
-                var buffer = state.EntityManager.GetBuffer<Child>(entity).AsNativeArray().Reinterpret<Entity>();
-
-                ECB.DestroyEntity(buffer);
-                ECB.DestroyEntity(entity);
+                ECB.DestroyEntity(entityQuery);
             }
         }
+
         ECB.Playback(state.EntityManager);
         ECB.Dispose();
-
-
-
-    }
-
-    [BurstCompile]
-    public void OnDestroy(ref SystemState state)
-    {
-
     }
 }
 

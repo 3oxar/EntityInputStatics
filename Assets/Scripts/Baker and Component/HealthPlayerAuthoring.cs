@@ -19,7 +19,6 @@ class HealthPlayerAuthoringBaker : Baker<HealthPlayerAuthoring>
     }
 }
 
-
 struct HealthPlayerComponent : IComponentData
 {
     public int Health;
