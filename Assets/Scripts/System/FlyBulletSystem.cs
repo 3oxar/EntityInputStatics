@@ -1,6 +1,7 @@
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Physics;
+using UnityEngine;
 
 partial struct FlyBulletSystem : ISystem
 {
@@ -44,8 +45,8 @@ partial struct FlyBulletSystem : ISystem
 
                     }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
                     state.Dependency.Complete();
-                    velocity.ValueRW.Linear = 0;
 
+                    velocity.ValueRW.Linear = 0;
                     velocity.ValueRW.Linear.z = flyBullet.ValueRO.BulletVelosity;
                 }
                 else
@@ -69,7 +70,7 @@ partial struct FlyBulletSystem : ISystem
             if (FlyBulletComponent.HasComponent(entityA))
             {
                 var velocity = FlyBulletComponent[entityA];
-                velocity.BulletVelosity *= (-1);//меняем направление полета пули
+                velocity.BulletVelosity = 5;//меняем направление полета пули
                 FlyBulletComponent[entityA] = velocity;
             }
         }
