@@ -9,6 +9,9 @@ partial class InputSystem : SystemBase
     private InputAction _jerkAction;
     private InputAction _fireAction;
     private InputAction _createPrefabAction;
+    private InputAction _downloadFile;
+    private InputAction _uploadFile;
+    private InputAction _write;
 
     private float2 _moveInput;
 
@@ -17,6 +20,11 @@ partial class InputSystem : SystemBase
     private float _fireInput;
     private float _createPrefabInput;
     private float _createPrefabReload;
+    private float _downloadFileInput;
+    private float _downloadFileReload;
+    private float _uploadFileInput;
+    private float _writeInput;
+    private float _writeReload;
 
     protected override void OnStartRunning()
     {
@@ -24,6 +32,9 @@ partial class InputSystem : SystemBase
         _jerkAction = new InputAction("jerk", binding: "<Keyboard>/space");
         _fireAction = new InputAction("fire", binding: "<Mouse>/leftButton");
         _createPrefabAction = new InputAction("createPrefab", binding: "<Keyboard>/tab");
+        _downloadFile = new InputAction("downloadFile", binding: "<Keyboard>/y");
+        _uploadFile = new InputAction("uploadFile", binding: "<Keyboard>/u");
+        _write = new InputAction("write", binding: "<Keyboard>/l");
 
         _moveAction.AddCompositeBinding("Dpad")
             .With("Up", binding: "<Keyboard>/w")
@@ -43,10 +54,22 @@ partial class InputSystem : SystemBase
         _createPrefabAction.performed += context => { _createPrefabInput = context.ReadValue<float>(); };
         _createPrefabAction.canceled += context => { _createPrefabInput = context.ReadValue<float>(); };
 
+        _downloadFile.performed += context => { _downloadFileInput = context.ReadValue<float>(); };
+        _downloadFile.canceled += context => { _downloadFileInput = context.ReadValue<float>(); };
+
+        _uploadFile.performed += context => { _uploadFileInput = context.ReadValue<float>(); };
+        _uploadFile.canceled += context => { _uploadFileInput = context.ReadValue<float>(); };
+
+        _write.performed += context => { _writeInput = context.ReadValue<float>(); };
+        _write.canceled += context => { _writeInput = context.ReadValue<float>(); };
+
         _jerkAction.Enable();
         _moveAction.Enable();
         _fireAction.Enable();
         _createPrefabAction.Enable();
+        _downloadFile.Enable();
+        _uploadFile.Enable();
+        _write.Enable();
     }
 
     protected override void OnUpdate()
@@ -55,6 +78,9 @@ partial class InputSystem : SystemBase
         {
             input.ValueRW.Move = _moveInput;
             input.ValueRW.Fire = _fireInput;
+          
+            input.ValueRW.Upload = _uploadFileInput;
+            input.ValueRW.Write = _writeInput;
 
             //рывок
             if (_jerkInput != 0 && _jerkReload == 0)//если нажата кнопка и время перезарядки рывка 0 секунд
@@ -93,6 +119,48 @@ partial class InputSystem : SystemBase
             }
             else if (_createPrefabReload < 0)
                 _createPrefabReload = 0;
+
+            //загрузка данных
+            if(_downloadFileInput != 0 && _downloadFileReload == 0)
+            {
+                input.ValueRW.Download = _downloadFileInput;
+                _downloadFileInput = 0;
+                _downloadFileReload = 5f;
+            }
+            else if(_downloadFileInput == 0)
+            {
+                input.ValueRW.Download = _downloadFileInput;
+            }
+
+            if(_downloadFileReload > 0)
+            {
+                _downloadFileReload -= SystemAPI.Time.DeltaTime;
+            }
+            else if(_downloadFileReload < 0)
+            {
+                _downloadFileReload = 0;
+            }
+
+            //запись данных
+            if(_writeInput != 0 && _writeReload == 0)
+            {
+                input.ValueRW.Write = _writeInput;
+                _writeInput = 0;
+                _writeReload = 5f;
+            }
+            else if(_createPrefabInput == 0)
+            {
+                _createPrefabInput = _writeInput;
+            }
+
+            if(_writeReload > 0)
+            {
+                _writeReload -= SystemAPI.Time.DeltaTime;
+            }
+            else if(_writeReload < 0)
+            {
+                _writeReload = 0;
+            }
         }
     }
 
@@ -102,6 +170,9 @@ partial class InputSystem : SystemBase
         _moveAction.Disable();
         _fireAction.Disable();
         _createPrefabAction.Disable();
+        _downloadFile.Disable();
+        _uploadFile.Disable();
+        _write.Disable();
     }
 }
 

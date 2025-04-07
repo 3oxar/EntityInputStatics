@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.elringus.unitygoogledrive": {
+      "version": "https://github.com/elringus/unity-google-drive.git#package",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "653ead2f7b02a21c91df343abb1ea06ebeb1f639"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.4",
       "depth": 0,

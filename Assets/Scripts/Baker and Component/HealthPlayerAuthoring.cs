@@ -3,7 +3,8 @@ using UnityEngine;
 
 class HealthPlayerAuthoring : MonoBehaviour
 {
-    public int Health;
+    public SettingsPlayer SettingsPlayer;
+    [HideInInspector] public int Health;
 }
 
 class HealthPlayerAuthoringBaker : Baker<HealthPlayerAuthoring>
@@ -14,12 +15,13 @@ class HealthPlayerAuthoringBaker : Baker<HealthPlayerAuthoring>
 
         AddComponent(entity, new HealthPlayerComponent
         {
-            Health = authoring.Health
+            Health = authoring.SettingsPlayer.Health
         });
     }
 }
 
 struct HealthPlayerComponent : IComponentData
 {
+
     public int Health;
 }
