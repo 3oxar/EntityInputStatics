@@ -23,5 +23,5 @@ class AIBotAuthoringBaker : Baker<AIBotAuthoring>
 
 struct AIBotComponent : IComponentData
 {
-  
+    
 }

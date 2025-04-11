@@ -3,10 +3,12 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 using UnityEngine;
+using Unity.Core;
 
 partial struct AIBotSystem : ISystem
 {
-    private LocalTransform playerTransform;
+    private LocalTransform _playerTransform;
+    private Vector3 _distance;
 
     [BurstCompile]
     public void OnCreate(ref SystemState state)
@@ -20,23 +22,23 @@ partial struct AIBotSystem : ISystem
         
         foreach (var (playerLocalTransform, tag) in SystemAPI.Query<RefRO<LocalTransform>, RefRO<PlayerTag>>())
         {
-            playerTransform = playerLocalTransform.ValueRO;
+            _playerTransform = playerLocalTransform.ValueRO;
             
         }
 
         foreach (var (bot, localTransform, entuty) in SystemAPI.Query<AIBotComponent, RefRO<LocalTransform>>().WithEntityAccess())
         {
-            Vector3 distance = (localTransform.ValueRO.Position - playerTransform.Position);
+            _distance = (localTransform.ValueRO.Position - _playerTransform.Position);
 
-            var evalute = distance.sqrMagnitude;
+            var evalute = _distance.sqrMagnitude;
 
-            if(evalute < 1.6)
+            if(evalute < 2)
             {
                 Attack();
             }
-            else if(evalute > 1.6)
+            else if(evalute > 2)
             {
-                Walk();
+                Walk(ref state);
             }
             else if (evalute == 0)
             {
@@ -58,9 +60,16 @@ partial struct AIBotSystem : ISystem
     }
 
     [BurstCompile]
-    public void Walk()
+    public void Walk(ref SystemState state)
     {
-        Debug.Log("Walk");
+        var deltaTime = SystemAPI.Time.DeltaTime;
+        
+        foreach(var (bot, localTransform) in SystemAPI.Query<AIBotComponent, RefRW<LocalTransform>>())
+        {
+            Debug.Log("Walk");
+            localTransform.ValueRW.Position = localTransform.ValueRO.TransformPoint(_distance.normalized * deltaTime * (-1));
+        }
+
     }
 
     [BurstCompile]
