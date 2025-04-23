@@ -1,12 +1,13 @@
 using Unity.Entities;
 using UnityEngine;
 
-class DamageAuthoting : MonoBehaviour
+public class DamageAuthoting : MonoBehaviour
 {
+    [HideInInspector] public bool IsDamage = false; 
     public float TimeReloadDamage;
 }
 
-class DamageAuthotingBaker : Baker<DamageAuthoting>
+public class DamageAuthotingBaker : Baker<DamageAuthoting>
 {
     public override void Bake(DamageAuthoting authoring)
     {
@@ -15,13 +16,15 @@ class DamageAuthotingBaker : Baker<DamageAuthoting>
         AddComponent(entity, new DamageTag());
         AddComponent(entity, new DamageComponent
         {
-            TimeReloadDamage = authoring.TimeReloadDamage
+            TimeReloadDamage = authoring.TimeReloadDamage,
+            IsDamage = authoring.IsDamage
         });
     }
 }
 
 
-struct DamageComponent : IComponentData
+public struct DamageComponent : IComponentData
 {
     public float TimeReloadDamage;//промежуток нанесения урона
+    public bool IsDamage;
 }

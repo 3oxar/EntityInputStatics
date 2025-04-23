@@ -15,13 +15,12 @@ class HealthPlayerAuthoringBaker : Baker<HealthPlayerAuthoring>
 
         AddComponent(entity, new HealthPlayerComponent
         {
-            Health = authoring.SettingsPlayer.Health
+            Health = authoring.SettingsPlayer.Health,
         });
     }
 }
 
 struct HealthPlayerComponent : IComponentData
 {
-
     public int Health;
 }

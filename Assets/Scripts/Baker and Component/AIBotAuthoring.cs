@@ -1,9 +1,15 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
 class AIBotAuthoring : MonoBehaviour
 {
+    public List<MonoBehaviour> ListBehave;
+    public IAIBot ActivBehave;
+    public SettingsBot SettingsBot;
+
 }
 
 class AIBotAuthoringBaker : Baker<AIBotAuthoring>
@@ -13,15 +19,20 @@ class AIBotAuthoringBaker : Baker<AIBotAuthoring>
         Entity entity = GetEntity(authoring, TransformUsageFlags.None);
 
         AddComponent<EnemyTag>(entity);
-        AddComponent(entity, new AIBotComponent
+        AddComponentObject(entity, new AIBotComponent
         {
-           
+           ListBehave = authoring.ListBehave,
+           ActivBehave = authoring.ActivBehave,
+           SettingsBot = authoring.SettingsBot
         });
     }
 }
 
 
-struct AIBotComponent : IComponentData
+class AIBotComponent : IComponentData
 {
-    
+    public List<MonoBehaviour> ListBehave;
+    public IAIBot ActivBehave;
+    public SettingsBot SettingsBot;
+
 }

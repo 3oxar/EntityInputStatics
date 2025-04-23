@@ -4,6 +4,7 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Physics;
 using Unity.Physics.Systems;
+using UnityEngine;
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(PhysicsSystemGroup))]
@@ -44,19 +45,17 @@ partial struct DamageSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate(state.GetEntityQuery(ComponentType.ReadOnly<PlayerTag>()));
-
         _ComponentDataHandles = new ComponentDataHandles(ref state);
     }
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-
         _EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         _EntityCommandBuffer = SystemAPI.GetSingleton<EndInitializationEntityCommandBufferSystem.Singleton>().
             CreateCommandBuffer(_EntityManager.WorldUnmanaged);
        
-        foreach (var damageComponent in SystemAPI.Query<RefRW<DamageComponent>>())
+        foreach (var (damageComponent, entity) in SystemAPI.Query<RefRW<DamageComponent>>().WithEntityAccess())
         {
             if (damageComponent.ValueRO.TimeReloadDamage == 0)
             {
@@ -67,17 +66,17 @@ partial struct DamageSystem : ISystem
                     DamageTag = _ComponentDataHandles.damageTag,
                     healthPlayerComponent = _ComponentDataHandles.healthPlayerComponent,
                     damageComponent = _ComponentDataHandles.damageComponent,
-
                 }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
                 state.Dependency.Complete();
             }
             else if(damageComponent.ValueRO.TimeReloadDamage > 0)
             {
                 damageComponent.ValueRW.TimeReloadDamage -= SystemAPI.Time.DeltaTime;
-
+              
                 if (damageComponent.ValueRO.TimeReloadDamage <= 0)
                 {
                     damageComponent.ValueRW.TimeReloadDamage = 0;
+                    damageComponent.ValueRW.IsDamage = false;//опять можно наносить урон игроку 
                 }
             }
         }
@@ -100,9 +99,12 @@ partial struct DamageSystem : ISystem
             {
                 var healthPlayer = healthPlayerComponent.GetRefRW(entityA);
                 var damage = damageComponent.GetRefRW(entityB);
-                damage.ValueRW.TimeReloadDamage = 1f;//время перезарядка нанесения урона 
-                healthPlayer.ValueRW.Health--;//нанесения урона
-                
+                if(damage.ValueRO.IsDamage == false)
+                {
+                    damage.ValueRW.TimeReloadDamage = 2f;
+                    damage.ValueRW.IsDamage = true;
+                    healthPlayer.ValueRW.Health--;//нанесения урона
+                }
             }
         }
     }
