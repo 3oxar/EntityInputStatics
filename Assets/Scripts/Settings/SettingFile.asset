@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NameFileJson: PlayerSettings
   URLFile: https://drive.google.com/uc?export=download&id=1siw7X8L1mvxATAH7o6cDdHUKvDNt93_g
-  SettingsPlayer: {fileID: 11400000, guid: 14389e62b1454a84b8b1b764bd53a4c2, type: 2}
+  SettingsPlayer: {fileID: 0}

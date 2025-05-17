@@ -1,10 +1,11 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Burst;
+using Zenject;
 
 partial struct HealthPlayerSystem : ISystem
 {
-   
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {

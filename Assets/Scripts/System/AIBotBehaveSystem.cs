@@ -21,20 +21,17 @@ partial struct AIBotBehaveSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        Debug.Log("behave");
         _deltaTime = SystemAPI.Time.DeltaTime;
         var ecb = new EntityCommandBuffer(Allocator.Temp);
 
         foreach (var (bot, enemyTag, botAttackTag, entity) in SystemAPI.Query< RefRO<AIBotsComponent>, RefRO<EnemyTag>, RefRO<AIBotAttackTag>>().WithEntityAccess())
         {
-            Debug.Log("Attack");
             ecb.RemoveComponent<AIBotAttackTag>(entity);
 
         }
         foreach (var (botData, bot, botLocalTransform, enemyTag, botAttackTag, entity) in SystemAPI.Query<AIBotsDataComponent ,RefRO<AIBotsComponent>,
             RefRW<LocalTransform>, RefRO<EnemyTag>, RefRO<AIBotMoveTag>>().WithEntityAccess())
         {
-            Debug.Log("Move");
             
             botLocalTransform.ValueRW.Position = botLocalTransform.ValueRW.TransformPoint(botData.Distance.normalized * _deltaTime * (-1));
             botLocalTransform.ValueRW.Position.y = 0.5f;
@@ -44,7 +41,6 @@ partial struct AIBotBehaveSystem : ISystem
         }
         foreach (var (bot, enemyTag, botAttackTag, entity) in SystemAPI.Query< RefRO<AIBotsComponent>, RefRO<EnemyTag>, RefRO<AIBotWaitTag>>().WithEntityAccess())
         {
-            Debug.Log("Wait");
             ecb.RemoveComponent<AIBotWaitTag>(entity);
         }
 

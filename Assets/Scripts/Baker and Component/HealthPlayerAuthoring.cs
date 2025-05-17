@@ -1,10 +1,16 @@
 using Unity.Entities;
 using UnityEngine;
+using Zenject;
 
 class HealthPlayerAuthoring : MonoBehaviour
 {
-    public SettingsPlayer SettingsPlayer;
-    [HideInInspector] public int Health;
+    public CurrentConfigPlayer SettingsPlayer;
+
+    [Inject]
+    public void Init(IConfigurationPlayer configurationPlayer)
+    {
+        SettingsPlayer.CurretnSettingsPlayer = configurationPlayer.SettingsPlayer;
+    }
 }
 
 class HealthPlayerAuthoringBaker : Baker<HealthPlayerAuthoring>
@@ -12,15 +18,14 @@ class HealthPlayerAuthoringBaker : Baker<HealthPlayerAuthoring>
     public override void Bake(HealthPlayerAuthoring authoring)
     {
         Entity entity = GetEntity(authoring, TransformUsageFlags.None);
-
         AddComponent(entity, new HealthPlayerComponent
         {
-            Health = authoring.SettingsPlayer.Health,
+            Health = authoring.SettingsPlayer.CurretnSettingsPlayer.Health
         });
     }
 }
 
-struct HealthPlayerComponent : IComponentData
+public struct HealthPlayerComponent : IComponentData
 {
     public int Health;
 }
