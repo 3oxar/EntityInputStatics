@@ -22,7 +22,7 @@ partial struct FirePlayerSystem : ISystem
                 _fireReload = 0.5f;
                 var instance = ECB.Instantiate(fire.Bullet);
                 var transform = LocalTransform.FromPositionRotationScale(new float3(fire.TransformCreateBullet.position.x, fire.TransformCreateBullet.position.y + 0.7f, 
-                    fire.TransformCreateBullet.position.z - 1f), Quaternion.Euler(90,0,0), 0.1f);
+                    fire.TransformCreateBullet.position.z - 1f), Quaternion.Euler(90,180,0), 0.1f);
                 
                 ECB.SetComponent(instance, transform);
             }
