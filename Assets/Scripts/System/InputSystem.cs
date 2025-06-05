@@ -12,6 +12,7 @@ partial class InputSystem : SystemBase
     private InputAction _downloadFile;
     private InputAction _uploadFile;
     private InputAction _write;
+    private InputAction _changedShaderPlayer;
 
     private float2 _moveInput;
 
@@ -25,6 +26,8 @@ partial class InputSystem : SystemBase
     private float _uploadFileInput;
     private float _writeInput;
     private float _writeReload;
+    private float _changedShaderPlayerInput;
+    private float _changedShaderPlayerReload;
 
     protected override void OnStartRunning()
     {
@@ -35,6 +38,7 @@ partial class InputSystem : SystemBase
         _downloadFile = new InputAction("downloadFile", binding: "<Keyboard>/y");
         _uploadFile = new InputAction("uploadFile", binding: "<Keyboard>/u");
         _write = new InputAction("write", binding: "<Keyboard>/l");
+        _changedShaderPlayer = new InputAction("shaderPlayer", binding: "<Keyboard>/q");
 
         _moveAction.AddCompositeBinding("Dpad")
             .With("Up", binding: "<Keyboard>/w")
@@ -63,6 +67,9 @@ partial class InputSystem : SystemBase
         _write.performed += context => { _writeInput = context.ReadValue<float>(); };
         _write.canceled += context => { _writeInput = context.ReadValue<float>(); };
 
+        _changedShaderPlayer.performed += context => { _changedShaderPlayerInput = context.ReadValue<float>(); };
+        _changedShaderPlayer.canceled += context => { _changedShaderPlayerInput = context.ReadValue<float>(); };
+
         _jerkAction.Enable();
         _moveAction.Enable();
         _fireAction.Enable();
@@ -70,6 +77,7 @@ partial class InputSystem : SystemBase
         _downloadFile.Enable();
         _uploadFile.Enable();
         _write.Enable();
+        _changedShaderPlayer.Enable();
     }
 
     protected override void OnUpdate()
@@ -81,6 +89,8 @@ partial class InputSystem : SystemBase
           
             input.ValueRW.Upload = _uploadFileInput;
             input.ValueRW.Write = _writeInput;
+
+            input.ValueRW.ChangedShader = _changedShaderPlayerInput;
 
             //рывок
             if (_jerkInput != 0 && _jerkReload == 0)//если нажата кнопка и время перезарядки рывка 0 секунд
@@ -161,6 +171,8 @@ partial class InputSystem : SystemBase
             {
                 _writeReload = 0;
             }
+
+            
         }
     }
 
@@ -173,6 +185,7 @@ partial class InputSystem : SystemBase
         _downloadFile.Disable();
         _uploadFile.Disable();
         _write.Disable();
+        _changedShaderPlayer.Disable();
     }
 }
 

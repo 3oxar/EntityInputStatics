@@ -1269,6 +1269,7 @@ GameObject:
   - component: {fileID: 43175319908138491}
   - component: {fileID: 1333151934165571538}
   - component: {fileID: 1408611931480539357}
+  - component: {fileID: 8194193403264905398}
   m_Layer: 0
   m_Name: DogPBR
   m_TagString: Untagged
@@ -1285,7 +1286,7 @@ Transform:
   m_GameObject: {fileID: 8422892626600285392}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 1.2027867, y: -0.009932923, z: -1.1230596}
+  m_LocalPosition: {x: -0.24382629, y: -0.009978652, z: -0.2088918}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1551,6 +1552,7 @@ MonoBehaviour:
   Download: 0
   Upload: 0
   Write: 0
+  ChangedShader: 0
 --- !u!114 &43175319908138491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1575,8 +1577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d49621687ab97e41a8536fbe8c4b1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SettingsPlayer: {fileID: 0}
-  Health: 5
+  SettingsPlayer: {fileID: 11400000, guid: daabfd0d4f1dab04fbaf8125187abdb3, type: 2}
 --- !u!114 &1408611931480539357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,6 +1591,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 9220966347579293951, guid: 210be721fdd2a854ca280deeb6cc81b6, type: 3}
+--- !u!114 &8194193403264905398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422892626600285392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c51044fd8cbbd449b0e3267afa7ac01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StandartPlayerShared: {fileID: -6465566751694194690, guid: fcfadf04da195f94491de9e475296335, type: 3}
+  FrozenPlayerShared: {fileID: -6465566751694194690, guid: 235c1944651c15b46bce2c1e3ee363cf, type: 3}
+  DamagePlayerShared: {fileID: -6465566751694194690, guid: dff81c2cae8926b4a9d820f1eda09ad3, type: 3}
+  SkinnedMeshRender: {fileID: 8422892626600285520}
 --- !u!1 &8422892626600285394
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,7 +1852,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: da05e49adf02c134f88f541992ee78d2, type: 2}
+  - {fileID: 2100000, guid: 537835f1e0c01b54490ed9425c8e973e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

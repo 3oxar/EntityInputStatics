@@ -11,6 +11,7 @@ class InputAuthoring : MonoBehaviour
     [HideInInspector] public float Download;
     [HideInInspector] public float Upload;
     [HideInInspector] public float Write;
+    [HideInInspector] public float ChangedShader;
 }
 
 class InputAuthoringBaker : Baker<InputAuthoring>
@@ -27,7 +28,8 @@ class InputAuthoringBaker : Baker<InputAuthoring>
             Fire = authoring.Fire,
             Download = authoring.Download,
             Upload = authoring.Upload,
-            Write = authoring.Write
+            Write = authoring.Write,
+            ChangedShader = authoring.ChangedShader
         });
     }
 }
@@ -41,5 +43,6 @@ struct InputComponent: IComponentData
     public float Download;
     public float Upload;
     public float Write;
+    public float ChangedShader;
 }
 
