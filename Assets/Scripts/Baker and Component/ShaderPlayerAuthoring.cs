@@ -3,9 +3,9 @@ using UnityEngine;
 
 class ShaderPlayerAuthoring : MonoBehaviour
 {
-    public Shader StandartPlayerShared;
-    public Shader FrozenPlayerShared;
-    public Shader DamagePlayerShared;
+    public Material StandartPlayerMaterial;
+    public Material FrozenPlayerMaterial;
+    public Material DamagePlayerMaterial;
     public GameObject SkinnedMeshRender;
 }
 
@@ -19,9 +19,9 @@ class ShaderPlayerAuthoringBaker : Baker<ShaderPlayerAuthoring>
 
         AddComponentObject(entity, new ShaderPlayerComponent
         {
-            StandartPlayerShared = authoring.StandartPlayerShared,
-            FrozenPlayerShared = authoring.FrozenPlayerShared,
-            DamagePlayerShared = authoring.DamagePlayerShared,
+            StandartPlayerMaterial = authoring.StandartPlayerMaterial,
+            FrozenPlayerMaterial = authoring.FrozenPlayerMaterial,
+            DamagePlayerMaterial = authoring.DamagePlayerMaterial,
             SkinnedMeshRender = skinndeMesh
         });
     }
@@ -29,8 +29,8 @@ class ShaderPlayerAuthoringBaker : Baker<ShaderPlayerAuthoring>
 
 public class ShaderPlayerComponent : IComponentData
 {
-    public Shader StandartPlayerShared;
-    public Shader FrozenPlayerShared;
-    public Shader DamagePlayerShared;
+    public Material StandartPlayerMaterial;
+    public Material FrozenPlayerMaterial;
+    public Material DamagePlayerMaterial;
     public SkinnedMeshRenderer SkinnedMeshRender;
 }

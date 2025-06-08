@@ -24,14 +24,14 @@ partial struct ShaderPlayerSystem : ISystem
         {
             if (input.ValueRO.ChangedShader != 0 && _isChangedFrozenStandartShader == false && _changedShaderReload == 0)
             {
-                material.SkinnedMeshRender.sharedMaterial.shader = material.FrozenPlayerShared;
+                material.SkinnedMeshRender.sharedMaterial = material.FrozenPlayerMaterial;
                 _isChangedFrozenStandartShader = true;
                 _changedShaderReload = 1f;
             }
             else if (input.ValueRO.ChangedShader != 0 && _isChangedFrozenStandartShader == true && _changedShaderReload == 0)
             {
 
-                material.SkinnedMeshRender.sharedMaterial.shader = material.StandartPlayerShared;
+                material.SkinnedMeshRender.sharedMaterial = material.StandartPlayerMaterial;
                 _isChangedFrozenStandartShader = false;
                 _changedShaderReload = 1f;
             }
