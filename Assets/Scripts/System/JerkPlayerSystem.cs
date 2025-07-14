@@ -27,7 +27,8 @@ partial struct JerkPlayerSystem : ISystem
             switch (_isjerk)//движение во время рывка
             {
                 case true:
-                    transform.ValueRW.Position = transform.ValueRW.TransformPoint(new float3(inputPlayer.ValueRW.Move.x * 5f * SystemAPI.Time.DeltaTime, 0, inputPlayer.ValueRW.Move.y * 5f * SystemAPI.Time.DeltaTime) * -1);
+                    //transform.ValueRW.Position = transform.ValueRW.TransformPoint(new float3(inputPlayer.ValueRW.Move.x * 5f * SystemAPI.Time.DeltaTime, 0, inputPlayer.ValueRW.Move.y * 5f * SystemAPI.Time.DeltaTime) * -1);
+                    transform.ValueRW.Position += new float3(inputPlayer.ValueRW.Move.x * 5f * SystemAPI.Time.DeltaTime, 0, inputPlayer.ValueRW.Move.y * 5f * SystemAPI.Time.DeltaTime);
                     _timeJerk -= SystemAPI.Time.DeltaTime;
                     if (_timeJerk <= 0)
                     {

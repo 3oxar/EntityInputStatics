@@ -2,6 +2,7 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 partial struct MovePlayerSystem : ISystem
 {
@@ -12,8 +13,20 @@ partial struct MovePlayerSystem : ISystem
         foreach (var (transform, transformLocal, input) in SystemAPI.Query<MovePlayerComponent, RefRW<LocalTransform>, RefRO<InputComponent>>())
         {
             var deltaTime = SystemAPI.Time.DeltaTime;
-            transformLocal.ValueRW.Position = transformLocal.ValueRW.TransformPoint(new float3(input.ValueRO.Move.x * deltaTime, 0, input.ValueRO.Move.y * deltaTime) * -1);//умножаем на (-1) потому что персонаж развернут на 180
+            //transformLocal.ValueRW.Position = transformLocal.ValueRW.TransformPoint(new float3(input.ValueRO.Move.x * deltaTime, 0, input.ValueRO.Move.y * deltaTime));
+            transformLocal.ValueRW.Position +=new float3(input.ValueRO.Move.x * deltaTime, 0, input.ValueRO.Move.y * deltaTime);
             transform.TransformPlayer.position = transformLocal.ValueRW.Position;
+
+            var dir = new Vector3(input.ValueRO.Move.x, 0, input.ValueRO.Move.y);
+
+            if (dir == Vector3.zero) return;
+
+            var rot = transform.TransformPlayer.rotation;
+            var newRot = Quaternion.LookRotation(Vector3.Normalize(dir));
+            if (newRot == rot) return;
+
+            transformLocal.ValueRW.Rotation = Quaternion.Lerp(rot, newRot, deltaTime * 10);
+            transform.TransformPlayer.rotation = transformLocal.ValueRO.Rotation;
 
         }
     }
