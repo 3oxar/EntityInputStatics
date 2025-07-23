@@ -16,4 +16,4 @@ MonoBehaviour:
   SettingsPlayerMedium: {fileID: 11400000, guid: be23fe742ef857f4da61d08b2ce7e7c9, type: 2}
   SettingsPlayerHard: {fileID: 11400000, guid: c551416ea3637b946aa4ee839b2a1596, type: 2}
   DefaultSettingPlayer: {fileID: 11400000, guid: cd964037e30dccd4baa9885063b3a42b, type: 2}
-  DifficultyLevel: 3
+  DifficultyLevel: 2
