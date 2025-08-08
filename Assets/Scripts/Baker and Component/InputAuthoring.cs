@@ -12,6 +12,7 @@ class InputAuthoring : MonoBehaviour
     [HideInInspector] public float Upload;
     [HideInInspector] public float Write;
     [HideInInspector] public float ChangedShader;
+    [HideInInspector] public float UseItem;
 }
 
 class InputAuthoringBaker : Baker<InputAuthoring>
@@ -29,7 +30,8 @@ class InputAuthoringBaker : Baker<InputAuthoring>
             Download = authoring.Download,
             Upload = authoring.Upload,
             Write = authoring.Write,
-            ChangedShader = authoring.ChangedShader
+            ChangedShader = authoring.ChangedShader,
+            UseItem = authoring.UseItem
         });
     }
 }
@@ -44,5 +46,7 @@ struct InputComponent: IComponentData
     public float Upload;
     public float Write;
     public float ChangedShader;
+    public float UseItem;
+
 }
 

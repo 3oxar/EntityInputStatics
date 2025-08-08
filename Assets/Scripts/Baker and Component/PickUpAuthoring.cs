@@ -31,7 +31,7 @@ struct PickUpTag : IComponentData
 
 }
 
-enum PickUpList
+public enum PickUpList
 {
     nullItem = 0,
     Health = 1,

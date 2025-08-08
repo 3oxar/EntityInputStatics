@@ -13,6 +13,7 @@ partial class InputSystem : SystemBase
     private InputAction _uploadFile;
     private InputAction _write;
     private InputAction _changedShaderPlayer;
+    private InputAction _useItem;
 
     private float2 _moveInput;
 
@@ -28,6 +29,8 @@ partial class InputSystem : SystemBase
     private float _writeReload;
     private float _changedShaderPlayerInput;
     private float _changedShaderPlayerReload;
+    private float _useItemInput;
+
 
     protected override void OnStartRunning()
     {
@@ -39,8 +42,9 @@ partial class InputSystem : SystemBase
         _uploadFile = new InputAction("uploadFile", binding: "<Keyboard>/u");
         _write = new InputAction("write", binding: "<Keyboard>/l");
         _changedShaderPlayer = new InputAction("shaderPlayer", binding: "<Keyboard>/q");
+        _useItem = new InputAction("useItem", binding: "<Keyboard>/1");
 
-        _moveAction.AddCompositeBinding("Dpad")
+            _moveAction.AddCompositeBinding("Dpad")
             .With("Up", binding: "<Keyboard>/w")
             .With("Down", binding: "<Keyboard>/s")
             .With("Left", binding: "<Keyboard>/a")
@@ -70,6 +74,9 @@ partial class InputSystem : SystemBase
         _changedShaderPlayer.performed += context => { _changedShaderPlayerInput = context.ReadValue<float>(); };
         _changedShaderPlayer.canceled += context => { _changedShaderPlayerInput = context.ReadValue<float>(); };
 
+        _useItem.performed += context => { _useItemInput = context.ReadValue<float>(); };
+        _useItem.canceled += context => { _useItemInput = context.ReadValue<float>(); };
+
         _jerkAction.Enable();
         _moveAction.Enable();
         _fireAction.Enable();
@@ -78,6 +85,7 @@ partial class InputSystem : SystemBase
         _uploadFile.Enable();
         _write.Enable();
         _changedShaderPlayer.Enable();
+        _useItem.Enable();
     }
 
     protected override void OnUpdate()
@@ -172,6 +180,15 @@ partial class InputSystem : SystemBase
                 _writeReload = 0;
             }
 
+            if(_useItemInput > 0)
+            {
+                input.ValueRW.UseItem = _useItemInput;
+            }
+            else
+            {
+                input.ValueRW.UseItem = 0;
+            }
+          
             
         }
     }
@@ -186,6 +203,8 @@ partial class InputSystem : SystemBase
         _uploadFile.Disable();
         _write.Disable();
         _changedShaderPlayer.Disable();
+        _useItem.Disable();
+
     }
 }
 

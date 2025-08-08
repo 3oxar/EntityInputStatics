@@ -1,11 +1,16 @@
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.UI;
 
 class PlayerInventoryAuthoring : MonoBehaviour
 {
-    public List<GameObject> ItemPlayerInventory;
+    //public List<PickUpList> ItemPlayerInventory;
+    public Dictionary<PickUpList, int> itemCountPlayerInventory;
     public List<GameObject> AllItemPlayer;
+    public List<GameObject> ItemInventoryPlayer;
+    public GridLayoutGroup InventoryPlayer;
+    
 }
 
 class PlayerInventoryAuthoringBaker : Baker<PlayerInventoryAuthoring>
@@ -16,22 +21,29 @@ class PlayerInventoryAuthoringBaker : Baker<PlayerInventoryAuthoring>
 
         AddComponentObject(entity, new PlayerInventoryComponent
         {
-            ItemPlayerInventory = authoring.ItemPlayerInventory,
-            AllItemPlayer = authoring.AllItemPlayer
+            //ItemPlayerInventory = authoring.ItemPlayerInventory,
+            AllItemPlayer = authoring.AllItemPlayer,
+            InventoryPlayer = authoring.InventoryPlayer,
+            itemCountPlayerInventory = authoring.itemCountPlayerInventory,
+            ItemInventoryPlayer = authoring.ItemInventoryPlayer
+            
         });
 
-        AddComponent<PlayerInventoryAddItem>(entity);
+        AddComponent<PlayerInventoryItem>(entity);
     }
 }
 class PlayerInventoryComponent : IComponentData
 {
-    public List<GameObject> ItemPlayerInventory;
+    //public List<PickUpList> ItemPlayerInventory;
+    public Dictionary<PickUpList, int> itemCountPlayerInventory;
     public List<GameObject> AllItemPlayer;
-
-
+    public GridLayoutGroup InventoryPlayer;
+    public List<GameObject> ItemInventoryPlayer;
 }
 
-struct PlayerInventoryAddItem : IComponentData
+struct PlayerInventoryItem : IComponentData
 {
     public PickUpList IndexItem;
 }
+
+

@@ -15,14 +15,14 @@ partial struct PickUpItemSystem : ISystem
         public ComponentLookup<PlayerTag> PlayerTag;
         public ComponentLookup<PickUpTag> PickUpTag;
         public ComponentLookup<PickUpComponent> PickUpComponent;
-        public ComponentLookup<PlayerInventoryAddItem> PlayerInventoryAddItem;
+        public ComponentLookup<PlayerInventoryItem> PlayerInventoryItem;
 
         public ComponentDataHandles(ref SystemState systemState)
         {
             PlayerTag = systemState.GetComponentLookup<PlayerTag>(true);
             PickUpTag = systemState.GetComponentLookup<PickUpTag>(true);
             PickUpComponent = systemState.GetComponentLookup<PickUpComponent>(true);
-            PlayerInventoryAddItem = systemState.GetComponentLookup<PlayerInventoryAddItem>(false);
+            PlayerInventoryItem = systemState.GetComponentLookup<PlayerInventoryItem>(false);
             
         }
 
@@ -31,7 +31,7 @@ partial struct PickUpItemSystem : ISystem
             PlayerTag.Update(ref state);
             PickUpTag.Update(ref state);
             PickUpComponent.Update(ref state);
-            PlayerInventoryAddItem.Update(ref state);
+            PlayerInventoryItem.Update(ref state);
         }
     }
 
@@ -55,7 +55,7 @@ partial struct PickUpItemSystem : ISystem
                 PickUpTag = _ComponentDataHandles.PickUpTag,
                 PlayerTag = _ComponentDataHandles.PlayerTag,
                 PickUpComponent = _ComponentDataHandles.PickUpComponent,
-                PlayerInventoryAddItem = _ComponentDataHandles.PlayerInventoryAddItem,
+                PlayerInventoryAddItem = _ComponentDataHandles.PlayerInventoryItem,
                 EntityCommandBuffer = _ecb,
             }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
             state.Dependency.Complete();
@@ -76,7 +76,7 @@ partial struct PickUpItemSystem : ISystem
         [ReadOnly] public ComponentLookup<PlayerTag> PlayerTag;
         [ReadOnly] public ComponentLookup<PickUpTag> PickUpTag;
         [ReadOnly] public ComponentLookup<PickUpComponent> PickUpComponent;
-        public ComponentLookup<PlayerInventoryAddItem> PlayerInventoryAddItem;
+        public ComponentLookup<PlayerInventoryItem> PlayerInventoryAddItem;
         public EntityCommandBuffer EntityCommandBuffer;
 
         public void Execute(CollisionEvent collisionEvent)
