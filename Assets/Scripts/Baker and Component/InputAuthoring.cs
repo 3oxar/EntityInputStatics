@@ -47,6 +47,6 @@ struct InputComponent: IComponentData
     public float Write;
     public float ChangedShader;
     public float UseItem;
-
+    
 }
 

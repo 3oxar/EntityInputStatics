@@ -19,8 +19,8 @@ partial struct PlayerInventorySystem : ISystem, ISystemStartStop
         foreach (var (playerInventory, playerTag) in SystemAPI.Query<PlayerInventoryComponent, RefRO<PlayerTag>>())
         {
             var inventoryPanelFind = GameObject.FindWithTag("PlayerInventoryTag");
-            playerInventory.InventoryPlayer = inventoryPanelFind.GetComponentInChildren<GridLayoutGroup>();
-            playerInventory.InventoryPlayer.gameObject.SetActive(false);
+            playerInventory.InventoryPlayerGridLayout = inventoryPanelFind.GetComponentInChildren<GridLayoutGroup>();
+            playerInventory.InventoryPlayerGridLayout.gameObject.SetActive(false);
 
             playerInventory.itemCountPlayerInventory = new System.Collections.Generic.Dictionary<PickUpList, int>();
         }

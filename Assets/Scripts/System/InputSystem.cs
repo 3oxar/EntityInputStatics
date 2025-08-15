@@ -44,7 +44,7 @@ partial class InputSystem : SystemBase
         _changedShaderPlayer = new InputAction("shaderPlayer", binding: "<Keyboard>/q");
         _useItem = new InputAction("useItem", binding: "<Keyboard>/1");
 
-            _moveAction.AddCompositeBinding("Dpad")
+        _moveAction.AddCompositeBinding("Dpad")
             .With("Up", binding: "<Keyboard>/w")
             .With("Down", binding: "<Keyboard>/s")
             .With("Left", binding: "<Keyboard>/a")

@@ -1306,8 +1306,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373366054}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9999991, z: 0, w: -0.001366984}
-  m_LocalPosition: {x: 0.104558095, y: -0.009927452, z: -2.6009965}
+  m_LocalRotation: {x: 0, y: 0.99999905, z: 0, w: 0.0014002658}
+  m_LocalPosition: {x: 0.53930056, y: -0.009963572, z: -1.6356294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1593,10 +1593,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllItemPlayer:
-  - {fileID: 6230104334724654775, guid: 09160b7fc80fcbd49b96894228a345c9, type: 3}
+  - {fileID: 4387372319383260025, guid: 7d32cbedc88912d4f8ef74fafbcbfd5b, type: 3}
   - {fileID: 7940976631337945425, guid: 6570e2589e8b95648ab0286bbd466fe4, type: 3}
   ItemInventoryPlayer: []
-  InventoryPlayer: {fileID: 0}
+  InventoryPlayerGridLayout: {fileID: 0}
 --- !u!1 &481112486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,7 +1876,7 @@ Transform:
   m_GameObject: {fileID: 481112486}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.006562948, z: 0}
+  m_LocalPosition: {x: 0, y: 0.012109518, z: 0}
   m_LocalScale: {x: 1.5, y: 0.1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
