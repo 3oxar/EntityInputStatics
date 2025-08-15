@@ -13,16 +13,11 @@ partial class UseItemPlayerSystem : SystemBase
     private EntityCommandBuffer _ecb;
     private PickUpList _itemIndex;
 
-
     public PickUpList ItemIndex { set => _itemIndex = value; }
 
     protected override void OnCreate()
     {
         _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-    }
-
-    protected override void OnStartRunning()
-    {
     }
 
     protected override void OnUpdate()
@@ -34,6 +29,20 @@ partial class UseItemPlayerSystem : SystemBase
             {
                 input.ValueRW.UseItem = 0;
                 _reloadUseItem = 1f;
+
+                switch (_itemIndex)
+                {
+                    case PickUpList.nullItem:
+                        break;
+                    case PickUpList.Health:
+                        HealthItemPlayer(entity);
+                        break;
+                    case PickUpList.Speed:
+                        SpeedItemPlayer(entity);
+                        break;
+                    default:
+                        break;
+                }
 
                 inventoryPlayer.itemCountPlayerInventory[_itemIndex] -= 1;
                 var itemInventoryIndex = inventoryPlayer.ItemInventoryPlayer.FindIndex(x => x.GetComponent<ItemTag>().PickUpItemTag == _itemIndex);//индекс предмета в инвенторе игрока
@@ -65,5 +74,16 @@ partial class UseItemPlayerSystem : SystemBase
         _ecb.Dispose();
     }
 
-    
+    private void HealthItemPlayer(Entity entity)
+    {
+        var healthPlayer = _entityManager.GetComponentData<HealthPlayerComponent>(entity);
+        healthPlayer.Health += 5;
+        _entityManager.SetComponentData<HealthPlayerComponent>(entity, healthPlayer);
+    }
+
+    private void SpeedItemPlayer(Entity entity)
+    {
+        var movePlayer = _entityManager.GetComponentData<MovePlayerComponent>(entity);
+        movePlayer.Speed += 0.2f;
+    }
 }
