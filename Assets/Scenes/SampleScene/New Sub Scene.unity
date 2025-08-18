@@ -1278,6 +1278,7 @@ GameObject:
   - component: {fileID: 373366063}
   - component: {fileID: 373366062}
   - component: {fileID: 373366064}
+  - component: {fileID: 373366065}
   m_Layer: 0
   m_Name: HybridAnimationPlayer
   m_TagString: Untagged
@@ -1306,8 +1307,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373366054}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9368687, z: 0, w: 0.34968135}
-  m_LocalPosition: {x: 1.5856187, y: -0.009956837, z: -2.9085894}
+  m_LocalRotation: {x: 0, y: -0.0013642663, z: 0, w: 0.9999991}
+  m_LocalPosition: {x: 0.5350761, y: -0.009996414, z: -0.5305939}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1598,6 +1599,18 @@ MonoBehaviour:
   - {fileID: 792841953300706440, guid: 637fe5a6555e674459a1650185cb082f, type: 3}
   ItemInventoryPlayer: []
   InventoryPlayerGridLayout: {fileID: 0}
+--- !u!114 &373366065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373366054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c154b8738bb7e24489af5872fe3fe507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &481112486
 GameObject:
   m_ObjectHideFlags: 0
