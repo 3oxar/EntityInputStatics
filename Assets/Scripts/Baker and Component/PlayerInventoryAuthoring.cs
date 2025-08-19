@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 class PlayerInventoryAuthoring : MonoBehaviour
 {
-    public Dictionary<PickUpList, int> itemCountPlayerInventory;//кол-во предметов какова типа у игрока
+    public Dictionary<ItemPlayerAllList, int> itemCountPlayerInventory;//кол-во предметов какова типа у игрока
     public List<GameObject> AllItemPlayer;//все возмодные предметы у игрока 
     public List<GameObject> ItemInventoryPlayer;//предметы в инвенторе у игрока
     public GridLayoutGroup InventoryPlayerGridLayout;//панель отображение предметов на экране 
@@ -32,7 +32,7 @@ class PlayerInventoryAuthoringBaker : Baker<PlayerInventoryAuthoring>
 }
 class PlayerInventoryComponent : IComponentData
 {
-    public Dictionary<PickUpList, int> itemCountPlayerInventory;
+    public Dictionary<ItemPlayerAllList, int> itemCountPlayerInventory;
     public List<GameObject> AllItemPlayer;
     public GridLayoutGroup InventoryPlayerGridLayout;
     public List<GameObject> ItemInventoryPlayer;
@@ -40,7 +40,7 @@ class PlayerInventoryComponent : IComponentData
 
 struct PlayerInventoryItem : IComponentData
 {
-    public PickUpList IndexItem;
+    public ItemPlayerAllList IndexItem;
 }
 
 

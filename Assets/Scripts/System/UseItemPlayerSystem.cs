@@ -11,9 +11,9 @@ partial class UseItemPlayerSystem : SystemBase
     private float _reloadUseItem;
     private EntityManager _entityManager;
     private EntityCommandBuffer _ecb;
-    private PickUpList _itemIndex;
+    private ItemPlayerAllList _itemIndex;
 
-    public PickUpList ItemIndex { set => _itemIndex = value; }
+    public ItemPlayerAllList ItemIndex { set => _itemIndex = value; }
 
     protected override void OnCreate()
     {
@@ -32,12 +32,12 @@ partial class UseItemPlayerSystem : SystemBase
 
                 switch (_itemIndex)
                 {
-                    case PickUpList.nullItem:
+                    case ItemPlayerAllList.nullItem:
                         break;
-                    case PickUpList.Health:
+                    case ItemPlayerAllList.Health:
                         HealthItemPlayer(entity);
                         break;
-                    case PickUpList.Speed:
+                    case ItemPlayerAllList.Speed:
                         SpeedItemPlayer(entity);
                         break;
                     default:

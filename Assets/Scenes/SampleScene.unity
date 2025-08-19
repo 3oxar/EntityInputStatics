@@ -3406,7 +3406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FormulaItem: 01000000
   CoutNeedItem: 02000000
-  ResultItemCraft: {fileID: 0}
+  IndexCraftItem: 3
+  ResultItemCraft: {fileID: 2387765695729936822, guid: b5b5fecf80ebce34bb6e4b943d69f4c3, type: 3}
 --- !u!1 &1722807113
 GameObject:
   m_ObjectHideFlags: 0

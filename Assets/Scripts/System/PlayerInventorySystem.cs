@@ -22,7 +22,7 @@ partial struct PlayerInventorySystem : ISystem, ISystemStartStop
             playerInventory.InventoryPlayerGridLayout = inventoryPanelFind.GetComponentInChildren<GridLayoutGroup>();
             playerInventory.InventoryPlayerGridLayout.gameObject.SetActive(false);
 
-            playerInventory.itemCountPlayerInventory = new System.Collections.Generic.Dictionary<PickUpList, int>();
+            playerInventory.itemCountPlayerInventory = new System.Collections.Generic.Dictionary<ItemPlayerAllList, int>();
         }
 
         ecb.Playback(state.EntityManager);

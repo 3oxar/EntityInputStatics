@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UseItemPlayer : MonoBehaviour
 {
-    public PickUpList ItemIndex;
+    public ItemPlayerAllList ItemIndex;
     public TextMeshProUGUI CoutItemText;
 
     /// <summary>

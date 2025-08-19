@@ -3,7 +3,7 @@ using UnityEngine;
 
 class PickUpAuthoring : MonoBehaviour
 {
-    public PickUpList PickUpItemList;
+    public ItemPlayerAllList PickUpItemList;
 }
 
 class PickUpAuthoringBaker : Baker<PickUpAuthoring>
@@ -23,7 +23,7 @@ class PickUpAuthoringBaker : Baker<PickUpAuthoring>
 
 struct PickUpComponent : IComponentData
 {
-     public PickUpList PickUpEntity;
+     public ItemPlayerAllList PickUpEntity;
 }
 
 struct PickUpTag : IComponentData
@@ -31,9 +31,11 @@ struct PickUpTag : IComponentData
 
 }
 
-public enum PickUpList
+public enum ItemPlayerAllList
 {
     nullItem = 0,
     Health = 1,
-    Speed = 2
+    Speed = 2,
+    HealthCraftItem = 3,
+    SpeedCraftItem = 4,
 }

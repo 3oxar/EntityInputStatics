@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-class CraftItemPlayer : MonoBehaviour
+class CraftItemPlayerAuthoring : MonoBehaviour
 {
    
 }
 
-class CraftItemPlayerBaker : Baker<CraftItemPlayer>
+class CraftItemPlayerBaker : Baker<CraftItemPlayerAuthoring>
 {
-    public override void Bake(CraftItemPlayer authoring)
+    public override void Bake(CraftItemPlayerAuthoring authoring)
     {
         Entity entity = GetEntity(authoring, TransformUsageFlags.None);
 
@@ -23,4 +23,11 @@ class CraftItemPlayerBaker : Baker<CraftItemPlayer>
 
 class CraftItemPlayerComponent : IComponentData
 {
+
+    public ItemPlayerAllList IndexCraftItem;
+    public GameObject ResultItemCraft;
+
+    public bool isAddCraftItem;
 }
+
+

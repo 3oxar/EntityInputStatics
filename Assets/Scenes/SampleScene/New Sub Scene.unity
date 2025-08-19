@@ -1307,8 +1307,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373366054}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.0013642663, z: 0, w: 0.9999991}
-  m_LocalPosition: {x: 0.5350761, y: -0.009996414, z: -0.5305939}
+  m_LocalRotation: {x: 0, y: -0.0013692037, z: 0, w: 0.9999991}
+  m_LocalPosition: {x: 0.5326755, y: -0.009989679, z: -0.32598618}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1597,6 +1597,7 @@ MonoBehaviour:
   AllItemPlayer:
   - {fileID: 4387372319383260025, guid: 7d32cbedc88912d4f8ef74fafbcbfd5b, type: 3}
   - {fileID: 792841953300706440, guid: 637fe5a6555e674459a1650185cb082f, type: 3}
+  - {fileID: 2387765695729936822, guid: b5b5fecf80ebce34bb6e4b943d69f4c3, type: 3}
   ItemInventoryPlayer: []
   InventoryPlayerGridLayout: {fileID: 0}
 --- !u!114 &373366065

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class FormulaItemCraft : MonoBehaviour
 {
-    public List<PickUpList> FormulaItem;
+    public List<ItemPlayerAllList> FormulaItem;
     public List<int> CoutNeedItem;
 
+    public ItemPlayerAllList IndexCraftItem;
     public GameObject ResultItemCraft;
 
     private bool _isCraft;
@@ -19,6 +20,7 @@ public class FormulaItemCraft : MonoBehaviour
         useCraftPlayerSystem.CoutNeedItem = CoutNeedItem;
         useCraftPlayerSystem.ResultItemCraft = ResultItemCraft;
         useCraftPlayerSystem.IsCraft = true;
+        useCraftPlayerSystem.IndexCraftItem = IndexCraftItem;
         
     }
 }

@@ -4,17 +4,19 @@ using UnityEngine;
 
 partial class CraftPlayerSystem : SystemBase
 {
-    private List<PickUpList> _formulaItem;
+    private List<ItemPlayerAllList> _formulaItem;
     private List<int> _coutNeedItem;
- 
+
+    private ItemPlayerAllList _indexCraftItem;
     private GameObject _resultItemCraft;
 
     private bool _isCraft;
 
-    public List<PickUpList> FormulaItem { get => _formulaItem; set => _formulaItem = value; }
+    public List<ItemPlayerAllList> FormulaItem { get => _formulaItem; set => _formulaItem = value; }
     public List<int> CoutNeedItem { get => _coutNeedItem; set => _coutNeedItem = value; }
     public GameObject ResultItemCraft { get => _resultItemCraft; set => _resultItemCraft = value; }
     public bool IsCraft { get => _isCraft; set => _isCraft = value; }
+    public ItemPlayerAllList IndexCraftItem { get => _indexCraftItem; set => _indexCraftItem = value; }
 
     protected override void OnUpdate()
     {
@@ -55,6 +57,9 @@ partial class CraftPlayerSystem : SystemBase
                             playerInventory.itemCountPlayerInventory[item] -= coutItem;
 
                             Debug.Log("Craft");
+                            cratfItem.IndexCraftItem = _indexCraftItem;
+                            cratfItem.ResultItemCraft = _resultItemCraft;
+                            cratfItem.isAddCraftItem = true;
                         }
                         else
                         {
