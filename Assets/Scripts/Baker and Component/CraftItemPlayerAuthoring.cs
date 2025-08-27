@@ -28,6 +28,8 @@ class CraftItemPlayerComponent : IComponentData
     public GameObject ResultItemCraft;
 
     public bool isAddCraftItem;
+    public ItemPlayerAllList ItemIndex;
+
 }
 
 

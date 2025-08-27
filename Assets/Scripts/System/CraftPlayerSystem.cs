@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
@@ -11,7 +12,8 @@ partial class CraftPlayerSystem : SystemBase
     private GameObject _resultItemCraft;
 
     private bool _isCraft;
-
+    private bool _isStartCraft;
+    
     public List<ItemPlayerAllList> FormulaItem { get => _formulaItem; set => _formulaItem = value; }
     public List<int> CoutNeedItem { get => _coutNeedItem; set => _coutNeedItem = value; }
     public GameObject ResultItemCraft { get => _resultItemCraft; set => _resultItemCraft = value; }
@@ -22,57 +24,42 @@ partial class CraftPlayerSystem : SystemBase
     {
         foreach(var (cratfItem, playerInventory, playerTag) in SystemAPI.Query<CraftItemPlayerComponent, PlayerInventoryComponent, RefRO<PlayerTag>>())
         {
-            if(_isCraft == true)
+            if (_isCraft == true)
             {
                 _isCraft = false;
-
-                //удалить потом
-                foreach (var item in _formulaItem)
+                _isStartCraft = false;
+                foreach (var item in _formulaItem)//сначало проверяем все ли предметы есть по кол-во у игрока
                 {
-                    Debug.Log("нужные предметы - " + item);
-                }
-                foreach (var item in _coutNeedItem)
-                {
-                    Debug.Log("кол-во - " + item);
-                }
-
-                foreach (var item in _formulaItem)
-                {
-                    if(playerInventory.itemCountPlayerInventory.ContainsKey(item) == true)
+                    foreach (var coutItem in _coutNeedItem)
                     {
-                        Debug.Log("Предмет есть у игрока");
-
-                    }
-                    else
-                    {
-                        Debug.Log("Предмета нет");
-                        return;
-                    }
-
-                    foreach(var coutItem in _coutNeedItem)
-                    {
-                        if (playerInventory.itemCountPlayerInventory[item] >= coutItem)
+                        if (playerInventory.itemCountPlayerInventory[item] < coutItem)
                         {
-                            Debug.Log("Кол-во предметов достаточно у игрока");
-                            playerInventory.itemCountPlayerInventory[item] -= coutItem;
-
-                            Debug.Log("Craft");
-                            cratfItem.IndexCraftItem = _indexCraftItem;
-                            cratfItem.ResultItemCraft = _resultItemCraft;
-                            cratfItem.isAddCraftItem = true;
-                        }
-                        else
-                        {
-                            Debug.Log("не хватает.");
+                            _isStartCraft = false;
                             return;
                         }
+                        else
+                            _isStartCraft = true;
                     }
+                }
 
-
+                if (_isStartCraft == true)
+                {
+                    foreach (var item in _formulaItem)
+                    {
+                        foreach (var coutItem in _coutNeedItem)//отнимаем предметы 
+                        {
+                            playerInventory.itemCountPlayerInventory[item] -= coutItem;
+                        }
+                        //начинаем крафт
+                        cratfItem.IndexCraftItem = _indexCraftItem;
+                        cratfItem.ResultItemCraft = _resultItemCraft;
+                        cratfItem.isAddCraftItem = true;
+                        cratfItem.ItemIndex = item;
+                    }
                 }
 
 
-                
+
             }
         }
     }

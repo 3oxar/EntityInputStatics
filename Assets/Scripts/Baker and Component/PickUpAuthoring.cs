@@ -38,4 +38,5 @@ public enum ItemPlayerAllList
     Speed = 2,
     HealthCraftItem = 3,
     SpeedCraftItem = 4,
+    MixedCraftItem = 5,
 }

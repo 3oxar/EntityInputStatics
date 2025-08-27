@@ -16,7 +16,6 @@ public class UseItemPlayer : MonoBehaviour
     {
         var useItemPlayerSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystemManaged<UseItemPlayerSystem>();
         useItemPlayerSystem.ItemIndex = ItemIndex;
-
     }
 
     private void OnEnable()
@@ -39,6 +38,15 @@ public class UseItemPlayer : MonoBehaviour
     {
         var coutItem = Convert.ToInt32(CoutItemText.text);
         if(coutItem < 1)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        var coutItem = Convert.ToInt32(CoutItemText.text);
+        if (coutItem < 1)
         {
             Destroy(this.gameObject);
         }

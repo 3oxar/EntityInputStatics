@@ -40,6 +40,15 @@ partial class UseItemPlayerSystem : SystemBase
                     case ItemPlayerAllList.Speed:
                         SpeedItemPlayer(entity);
                         break;
+                    case ItemPlayerAllList.HealthCraftItem:
+                        HealthCraftItemPlayer(entity);
+                        break;
+                    case ItemPlayerAllList.SpeedCraftItem:
+                        SpeedCraftItemPlayer(entity);
+                        break;
+                    case ItemPlayerAllList.MixedCraftItem:
+                        MixedCraftItemPlayer(entity);
+                        break;
                     default:
                         break;
                 }
@@ -52,6 +61,7 @@ partial class UseItemPlayerSystem : SystemBase
                 {
                     inventoryPlayer.ItemInventoryPlayer.Remove(inventoryPlayer.ItemInventoryPlayer[itemInventoryIndex]);//удаление из списка предметов у игрока
                     inventoryPlayer.itemCountPlayerInventory.Remove(_itemIndex);//удаление из перечесления количетсва предмета в инвентаре
+
                     DestoyObject?.Invoke();
                 }
 
@@ -66,8 +76,6 @@ partial class UseItemPlayerSystem : SystemBase
                 if (_reloadUseItem < 0)
                     _reloadUseItem = 0;
             }
-
-           
         }
 
         _ecb.Playback(_entityManager);
@@ -81,9 +89,31 @@ partial class UseItemPlayerSystem : SystemBase
         _entityManager.SetComponentData<HealthPlayerComponent>(entity, healthPlayer);
     }
 
+    private void HealthCraftItemPlayer(Entity entity)
+    {
+        var healthPlayer = _entityManager.GetComponentData<HealthPlayerComponent>(entity);
+        healthPlayer.Health += 15;
+        _entityManager.SetComponentData<HealthPlayerComponent>(entity, healthPlayer);
+    }
+
     private void SpeedItemPlayer(Entity entity)
     {
         var movePlayer = _entityManager.GetComponentData<MovePlayerComponent>(entity);
         movePlayer.Speed += 0.2f;
+    }
+
+    private void SpeedCraftItemPlayer(Entity entity)
+    {
+        var movePlayer = _entityManager.GetComponentData<MovePlayerComponent>(entity);
+        movePlayer.Speed += 0.3f;
+    }
+
+    private void MixedCraftItemPlayer(Entity entity)
+    {
+        var movePlayer = _entityManager.GetComponentData<MovePlayerComponent>(entity);
+        var healthPlayer = _entityManager.GetComponentData<HealthPlayerComponent>(entity);
+        movePlayer.Speed += 0.3f;
+        healthPlayer.Health += 5;
+        _entityManager.SetComponentData<HealthPlayerComponent>(entity, healthPlayer);
     }
 }
