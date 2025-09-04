@@ -38,7 +38,4 @@ public class AIBotAttack : MonoBehaviour, IAIBot
             return 0;
         }
     }
-}        //_localTransformBot = systemState.EntityManager.GetComponentData<LocalTransform>(BotEntity);
-         //_localTransformPlayer = systemState.EntityManager.GetComponentData<LocalTransform>(PlayerEntity);
-
-//_distance = (_localTransformBot.Position - _localTransformPlayer.Position);
+}        

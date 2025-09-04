@@ -26,7 +26,7 @@ partial struct ParallelLoadConfigurationSystem : ISystem, ISystemStartStop
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
-        
+        state.RequireForUpdate(state.GetEntityQuery(ComponentType.ReadOnly<ParallelLoadConfigurationComponent>()));
     }
 
     [BurstCompile]

@@ -13,8 +13,7 @@ partial struct MovePlayerSystem : ISystem
         foreach (var (transform, transformLocal, input) in SystemAPI.Query<MovePlayerComponent, RefRW<LocalTransform>, RefRO<InputComponent>>())
         {
             var deltaTime = SystemAPI.Time.DeltaTime;
-            //transformLocal.ValueRW.Position = transformLocal.ValueRW.TransformPoint(new float3(input.ValueRO.Move.x * deltaTime, 0, input.ValueRO.Move.y * deltaTime));
-            transformLocal.ValueRW.Position +=new float3(input.ValueRO.Move.x * deltaTime, 0, input.ValueRO.Move.y * deltaTime);
+            transformLocal.ValueRW.Position +=new float3(input.ValueRO.Move.x * transform.Speed * deltaTime, 0, input.ValueRO.Move.y * transform.Speed * deltaTime);
             transform.TransformPlayer.position = transformLocal.ValueRW.Position;
 
             var dir = new Vector3(input.ValueRO.Move.x, 0, input.ValueRO.Move.y);
