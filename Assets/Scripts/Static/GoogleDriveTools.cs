@@ -62,6 +62,7 @@ public static class GoogleDriveTools
         Debug.Log("Write new settings");
         var jsonText = JsonUtility.ToJson(obj);
         System.IO.File.WriteAllText(path, jsonText);
+
     }
 
     private static IEnumerator WebGetCoroutine(string url)

@@ -13,7 +13,7 @@ class PlayerAnimationAuthoringBaker : Baker<PlayerAnimationAuthoring>
         var entity = GetEntity(TransformUsageFlags.Dynamic);
         AddComponentObject(entity, new PlayerGameObjectPrefab
         {
-            PrefabPlayer = authoring.PrefabPlayer
+            PrefabPlayer = authoring.PrefabPlayer,
         });
     }
 }
@@ -21,6 +21,7 @@ class PlayerAnimationAuthoringBaker : Baker<PlayerAnimationAuthoring>
 public class PlayerGameObjectPrefab : IComponentData
 {
     public GameObject PrefabPlayer;
+    public bool IsCreate;
 }
 
 public class PlayerAnimationReference : ICleanupComponentData

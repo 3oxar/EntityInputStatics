@@ -4,8 +4,9 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Photon.Pun;
 
-partial struct PlayerAnimateSystem : ISystem
+partial struct PlayerAnimateSystem : ISystem, ISystemStartStop
 {
     private int _healthPlayer;
     private float _timeHitAnim;
@@ -19,21 +20,34 @@ partial struct PlayerAnimateSystem : ISystem
         }
     }
 
+    public void OnStartRunning(ref SystemState state)
+    {
+       
+    }
+
+    public void OnStopRunning(ref SystemState state)
+    {
+       
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         var ecb = new EntityCommandBuffer(Allocator.Temp);
-
-        foreach(var (playerPrefab, entity) in SystemAPI.Query<PlayerGameObjectPrefab>().WithNone<PlayerAnimationReference>().WithEntityAccess())
+       
+        foreach (var (playerPrefab, entity) in SystemAPI.Query<PlayerGameObjectPrefab>().WithNone<PlayerAnimationReference>().WithEntityAccess())
         {
-            var newCompanionObject = Object.Instantiate(playerPrefab.PrefabPlayer);
-            var newAnimatorReference = new PlayerAnimationReference
+            if (playerPrefab.IsCreate == true)
             {
-                AnimationPlayer = newCompanionObject.GetComponent<Animator>()
-            };
-            ecb.AddComponent(entity, newAnimatorReference);
+                //var newCompanionObject = Object.Instantiate(playerPrefab.PrefabPlayer);
+                var newAnimatorReference = new PlayerAnimationReference
+                {
+                    AnimationPlayer = playerPrefab.PrefabPlayer.GetComponent<Animator>()
+                };
+                ecb.AddComponent(entity, newAnimatorReference);
+            }
         }
 
-        foreach(var (transform, animatorReference, input) in SystemAPI.Query<LocalTransform, PlayerAnimationReference, InputComponent>())//анимация бега
+        foreach (var (transform, animatorReference, input) in SystemAPI.Query<LocalTransform, PlayerAnimationReference, InputComponent>())//анимация бега
         {
             animatorReference.AnimationPlayer.SetBool("IsMoving", math.length(input.Move) > 0f);
             animatorReference.AnimationPlayer.transform.position = transform.Position;
